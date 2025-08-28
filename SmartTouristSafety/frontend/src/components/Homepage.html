@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeMyTrip - Travel Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: left 0.3s ease;
+            z-index: 1001;
+            padding: 80px 20px 20px;
+        }
+
+        .side-menu.active {
+            left: 0;
+        }
+
+        .side-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: padding-left 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            padding-left: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 40px 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Service Tabs */
+        .service-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: rgba(255,255,255,0.9);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-button:hover, .tab-button.active {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Search Container */
+        .search-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.9);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .service-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Map Container */
+        .map-container {
+            height: 400px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 18px;
+        }
+
+        /* Safety Features */
+        .safety-features {
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+
+        .safety-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .safety-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .safety-item i {
+            font-size: 2.5rem;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        /* Chatbot Tab */
+        .chatbot-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background: white;
+        }
+
+        .chatbot-input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .chatbot-input:focus {
+            border-color: #667eea;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .bot-message {
+            background: #f1f1f1;
+            color: #333;
+        }
+
+        /* Settings Modal */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .settings-content {
+            background: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .settings-item {
+            margin: 20px 0;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-plane"></i> TravelBook
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#" onclick="openSettings()"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#login">Login</a></li>
+            </ul>
+
+            <div class="hamburger" onclick="toggleSideMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <a href="#home">🏠 Home</a>
+        <a href="#" onclick="showTab('bus')">🚌 Bus Booking</a>
+        <a href="#" onclick="showTab('cab')">🚕 Cab Booking</a>
+        <a href="#" onclick="showTab('map')">🗺️ Your Map</a>
+        <a href="#" onclick="showTab('chatbot')">💬 Chatbot</a>
+        <a href="#" onclick="showTab('safety')">🛡️ Safety</a>
+        <a href="#" onclick="openSettings()">⚙️ Settings</a>
+        <a href="#login">👤 Login</a>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-content">
+            <span class="close" onclick="closeSettings()">&times;</span>
+            <h2><i class="fas fa-cog"></i> Site Settings</h2>
+            <div class="settings-item">
+                <h4>Notifications</h4>
+                <label><input type="checkbox" checked> Email notifications</label><br>
+                <label><input type="checkbox" checked> SMS alerts</label>
+            </div>
+            <div class="settings-item">
+                <h4>Language</h4>
+                <select style="width: 100%; padding: 10px;">
+                    <option>English</option>
+                    <option>Hindi</option>
+                    <option>Bengali</option>
+                    <option>Tamil</option>
+                </select>
+            </div>
+            <div class="settings-item">
+                <h4>Theme</h4>
+                <label><input type="radio" name="theme" checked> Light mode</label><br>
+                <label><input type="radio" name="theme"> Dark mode</label>
+            </div>
+            <div class="settings-item">
+                <h4>Location Services</h4>
+                <label><input type="checkbox" checked> Auto-detect location</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1>Your Journey Begins Here</h1>
+            <p>Book buses, cabs, and explore amazing destinations with ease</p>
+        </section>
+
+        <!-- Service Tabs -->
+        <div class="service-tabs">
+            <button class="tab-button active" onclick="showTab('bus')">
+                <i class="fas fa-bus"></i> Bus
+            </button>
+            <button class="tab-button" onclick="showTab('cab')">
+                <i class="fas fa-taxi"></i> Cab
+            </button>
+            <button class="tab-button" onclick="showTab('map')">
+                <i class="fas fa-map"></i> Map
+            </button>
+            <button class="tab-button" onclick="showTab('chatbot')">
+                <i class="fas fa-comment"></i> Chatbot
+            </button>
+            <button class="tab-button" onclick="showTab('safety')">
+                <i class="fas fa-shield-alt"></i> Safety
+            </button>
+        </div>
+
+        <!-- Bus Booking Tab -->
+        <div id="bus" class="tab-content active">
+            <div class="search-container">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #333;">
+                    <i class="fas fa-bus"></i> Book Your Bus
+                </h2>
+                <form class="search-form">
+                    <div class="form-group">
+                        <label for="bus-from">From</label>
+                        <input type="text" id="bus-from" placeholder="Enter departure city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bus-to">To</label>
+                        <input type="text" id="bus-to" placeholder="Enter destination city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bus-date">Departure Date</label>
+                        <input type="date" id="bus-date" required>
+                    </div>
+                </form>
+                <button class="search-btn" onclick="searchBus()">
+                    <i class="fas fa-search"></i> Search Buses
+                </button>
+            </div>
+        </div>
+
+        <!-- Cab Booking Tab -->
+        <div id="cab" class="tab-content">
+            <div class="search-container">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #333;">
+                    <i class="fas fa-taxi"></i> Book Your Cab
+                </h2>
+                <form class="search-form">
+                    <div class="form-group">
+                        <label for="cab-pickup">Pickup Location</label>
+                        <input type="text" id="cab-pickup" placeholder="Enter pickup location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cab-drop">Drop Location</label>
+                        <input type="text" id="cab-drop" placeholder="Enter drop location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cab-time">Pickup Time</label>
+                        <input type="datetime-local" id="cab-time" required>
+                    </div>
+                </form>
+                <button class="search-btn" onclick="searchCab()">
+                    <i class="fas fa-search"></i> Search Cabs
+                </button>
+            </div>
+        </div>
+
+        <!-- Map Tab -->
+        <div id="map" class="tab-content">
+            <div class="search-container">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #333;">
+                    <i class="fas fa-map"></i> Explore Your Map
+                </h2>
+                <div class="map-container">
+                    <p><i class="fas fa-map-marked-alt"></i> Interactive Map Coming Soon</p>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="search-btn">
+                        <i class="fas fa-location-arrow"></i> Find My Location
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chatbot Tab -->
+        <div id="chatbot" class="tab-content">
+            <div class="chatbot-container">
+                <div class="chatbot-header">
+                    <h2><i class="fas fa-robot"></i> Travel Assistant</h2>
+                    <p>Ask me anything about your travel needs!</p>
+                </div>
+                <div class="chatbot-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        <strong>Travel Bot:</strong> Hello! I'm here to help you with your travel needs. You can ask me about:
+                        <br>• Bus bookings and routes
+                        <br>• Cab services and pricing
+                        <br>• Travel safety measures
+                        <br>• Route information and maps
+                        <br><br>How can I assist you today?
+                    </div>
+                </div>
+                <div class="chatbot-input-container">
+                    <input type="text" class="chatbot-input" id="chatInput" placeholder="Type your message here..." onkeypress="handleChatInput(event)">
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Safety Tab -->
+        <div id="safety" class="tab-content">
+            <div class="safety-features">
+                <h2 style="text-align: center; color: #333; margin-bottom: 20px;">
+                    <i class="fas fa-shield-alt"></i> Safety Features
+                </h2>
+                <div class="safety-grid">
+                    <div class="safety-item">
+                        <i class="fas fa-user-check"></i>
+                        <h4>Verified Drivers</h4>
+                        <p>All drivers are background checked and verified for your safety</p>
+                    </div>
+                    <div class="safety-item">
+                        <i class="fas fa-route"></i>
+                        <h4>Live Tracking</h4>
+                        <p>Track your ride in real-time and share with family</p>
+                    </div>
+                    <div class="safety-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <h4>Emergency Support</h4>
+                        <p>24/7 emergency helpline available at your service</p>
+                    </div>
+                    <div class="safety-item">
+                        <i class="fas fa-virus-slash"></i>
+                        <h4>Sanitized Vehicles</h4>
+                        <p>Regular sanitization of all vehicles for health safety</p>
+                    </div>
+                    <div class="safety-item">
+                        <i class="fas fa-video"></i>
+                        <h4>CCTV Monitoring</h4>
+                        <p>All vehicles equipped with CCTV cameras</p>
+                    </div>
+                    <div class="safety-item">
+                        <i class="fas fa-first-aid"></i>
+                        <h4>First Aid Kit</h4>
+                        <p>Emergency first aid kit available in all vehicles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid (only shown on bus tab) -->
+        <div id="featuresGrid" class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Safe & Secure</h3>
+                <p>Your safety is our priority. All our partners are verified and vehicles are regularly sanitized.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-clock"></i>
+                <h3>24/7 Support</h3>
+                <p>Round-the-clock customer support to assist you with any queries or emergencies.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3>Best Prices</h3>
+                <p>Compare prices and get the best deals on bus and cab bookings across the country.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Easy Booking</h3>
+                <p>Book your rides in just a few clicks with our user-friendly interface.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Toggle side menu
+        function toggleSideMenu() {
+            const sideMenu = document.getElementById('sideMenu');
+            sideMenu.classList.toggle('active');
+        }
+
+        // Settings modal functions
+        function openSettings() {
+            document.getElementById('settingsModal').style.display = 'block';
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+
+        // Show tab function
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Show features grid only on bus tab
+            const featuresGrid = document.getElementById('featuresGrid');
+            if (tabName === 'bus') {
+                featuresGrid.style.display = 'grid';
+            } else {
+                featuresGrid.style.display = 'none';
+            }
+
+            // Close side menu on mobile
+            document.getElementById('sideMenu').classList.remove('active');
+        }
+
+        // Search functions
+        function searchBus() {
+            const from = document.getElementById('bus-from').value;
+            const to = document.getElementById('bus-to').value;
+            const date = document.getElementById('bus-date').value;
+
+            if (from && to && date) {
+                alert(`Searching buses from ${from} to ${to} on ${date}`);
+            } else {
+                alert('Please fill all fields');
+            }
+        }
+
+        function searchCab() {
+            const pickup = document.getElementById('cab-pickup').value;
+            const drop = document.getElementById('cab-drop').value;
+            const time = document.getElementById('cab-time').value;
+
+            if (pickup && drop && time) {
+                alert(`Booking cab from ${pickup} to ${drop} at ${time}`);
+            } else {
+                alert('Please fill all fields');
+            }
+        }
+
+        // Chat functionality
+        function handleChatInput(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addChatMessage(message, 'user');
+                input.value = '';
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    let response = "Thank you for your message! I'm here to help you with your travel needs.";
+                    
+                    const lowerMessage = message.toLowerCase();
+                    
+                    if (lowerMessage.includes('bus')) {
+                        response = "I can help you with bus bookings! Use the Bus tab to search for available buses between cities. We have extensive bus networks covering major routes across the country.";
+                    } else if (lowerMessage.includes('cab') || lowerMessage.includes('taxi')) {
+                        response = "For cab bookings, use the Cab tab to book instant rides. We offer various cab types - from economy to luxury, all with verified drivers.";
+                    } else if (lowerMessage.includes('safety') || lowerMessage.includes('safe')) {
+                        response = "Safety is our top priority! Check out our Safety tab to learn about verified drivers, live tracking, emergency support, and sanitized vehicles.";
+                    } else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
+                        response = "We offer competitive pricing! Bus fares start from ₹100 for short routes, while cab prices vary by distance and vehicle type. You can compare prices before booking.";
+                    } else if (lowerMessage.includes('map') || lowerMessage.includes('route')) {
+                        response = "Use our Map tab to explore routes and find the best paths to your destination. Live tracking is available for all bookings.";
+                    } else if (lowerMessage.includes('help')) {
+                        response = "I'm here to help! You can ask me about:\n• Bus and cab bookings\n• Safety features\n• Route information\n• Pricing details\n• Emergency support";
+                    }
+                    
+                    addChatMessage(response, 'bot');
+                }, 1000);
+            }
+        }
+
+        function addChatMessage(message, sender) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `<strong>You:</strong> ${message}`;
+            } else {
+                messageDiv.innerHTML = `<strong>Travel Bot:</strong> ${message}`;
+            }
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Close side menu and modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const sideMenu = document.getElementById('sideMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const settingsModal = document.getElementById('settingsModal');
+            
+            if (!sideMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                sideMenu.classList.remove('active');
+            }
+
+            if (event.target === settingsModal) {
+                settingsModal.style.display = 'none';
+            }
+        });
+
+        // Set minimum date to today
+        document.getElementById('bus-date').min = new Date().toISOString().split('T')[0];
+        document.getElementById('cab-time').min = new Date().toISOString().slice(0, 16);
+
+        // Initialize features grid visibility
+        document.addEventListener('DOMContentLoaded', function() {
+            const featuresGrid = document.getElementById('featuresGrid');
+            featuresGrid.style.display = 'grid'; // Show on initial load (bus tab is active)
+        });
+    </script>
+</body>
+</html>
