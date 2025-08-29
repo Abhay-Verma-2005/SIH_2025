@@ -1,0 +1,469 @@
+/* --- Google Font Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* --- CSS Variables (Color Palette & Styles) --- */
+:root {
+    --primary-blue: #0d2857;
+    --primary-red: #d9534f;
+    --light-red: #fde8e8;
+    --text-dark: #212529;
+    --text-light: #6c757d;
+    --bg-color: #f8f9fa;
+    --white-color: #ffffff;
+    --border-color: #dee2e6;
+    --green: #28a745;
+    --yellow: #ffc107;
+    --orange: #fd7e14;
+    --red: #dc3545;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Global Reset & Body Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-blue);
+}
+
+/* --- Utility Classes --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.btn {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: var(--white-color);
+}
+
+.btn-primary:hover {
+    background-color: #0a2046;
+}
+
+.btn-secondary {
+    background-color: var(--white-color);
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: #f1f1f1;
+}
+
+.card {
+    background-color: var(--white-color);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid #e9ecef;
+}
+
+/* --- Navbar Styling --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--white-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+}
+
+.navbar .nav-links a {
+    margin-left: 1.5rem;
+}
+
+/* --- Homepage Styling --- */
+.hero {
+    text-align: center;
+    padding: 6rem 1rem;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.hero .cta-buttons .btn {
+    margin: 0 0.5rem;
+}
+
+.safety-system {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.safety-system h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.status-cards {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.status-card {
+    background-color: var(--white-color);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 250px;
+    box-shadow: var(--box-shadow);
+    text-align: left;
+}
+
+.status-card .color-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.status-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.pricing-section {
+    padding: 4rem 1rem;
+    background-color: #fff;
+}
+
+.pricing-cards {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.pricing-card {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 350px;
+    text-align: center;
+    position: relative;
+}
+
+.pricing-card.recommended {
+    border-color: var(--primary-blue);
+}
+
+.pricing-card .badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #e8eaf6;
+    color: var(--primary-blue);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.pricing-card .badge.recommended-badge {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.pricing-card h3 {
+    font-size: 1.5rem;
+}
+
+.pricing-card .price {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 1rem 0;
+}
+
+.pricing-card .price span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-light);
+}
+
+.pricing-card ul {
+    list-style: none;
+    text-align: left;
+    margin: 2rem 0;
+}
+
+.pricing-card ul li {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.pricing-card ul li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.footer {
+    background-color: var(--white-color);
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-around;
+}
+
+/* --- Auth Pages (Login/Signup) Styling --- */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.auth-form {
+    width: 400px;
+    text-align: center;
+}
+
+.auth-form .logo {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    margin-bottom: 0.5rem;
+}
+
+.auth-form p {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.auth-form .form-group {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.auth-form .btn {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+/* --- Dashboard Styling --- */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.dashboard-card {
+    background-color: var(--white-color);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--box-shadow);
+}
+.dashboard-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+.dashboard-card h3 i {
+    margin-right: 8px;
+}
+
+.plan-route, .safety-legend, .emergency-sos {
+    grid-column: 1 / 2;
+}
+
+.live-map {
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-light);
+}
+
+.live-map i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.live-alerts, .nearby-locations {
+    grid-column: 3 / 4;
+}
+
+.emergency-sos .card {
+    background-color: var(--light-red);
+    border: 1px solid var(--primary-red);
+}
+
+.emergency-sos .btn-danger {
+    background-color: var(--primary-red);
+    color: white;
+    width: 100%;
+}
+.emergency-sos .btn-danger:hover {
+    background-color: #c82333;
+}
+.emergency-sos p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* --- Profile/Settings Page Styling --- */
+.profile-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.profile-card .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.profile-card .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.trip-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.trip-item:last-child {
+    border-bottom: none;
+}
+
+.plan-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.plan-item.disabled {
+    color: var(--text-light);
+}
+.plan-item .checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.plan-item.enabled .checkbox {
+    background-color: var(--green);
+    border-color: var(--green);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.plan-item.enabled .checkbox::after {
+    content: '✓';
+    font-size: 12px;
+}
+
+
+/* --- Chatbot Page Styling --- */
+.chatbot-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatbot-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+    max-width: 70%;
+    line-height: 1.4;
+}
+.message.user {
+    background-color: var(--primary-blue);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+.message.bot {
+    background-color: #e9ecef;
+    color: var(--text-dark);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+.chatbot-input {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+.chatbot-input input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-right: 10px;
+}

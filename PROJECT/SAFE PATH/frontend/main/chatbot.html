@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - SafePath</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">SafePath</a>
+        <div class="nav-links">
+             <a href="dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </nav>
+    <div class="chatbot-container card">
+        <div class="chatbot-header" style="padding: 1rem; border-bottom: 1px solid var(--border-color);">
+            <h3>SafePath Assistant</h3>
+            <p style="color: var(--text-light)">Ask me about routes, safety, or local places.</p>
+        </div>
+        <div class="chatbot-messages" id="chat-messages">
+             <div class="message bot">
+                Hello! How can I help you plan your safe journey today?
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button class="btn btn-primary" id="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        // Simple chatbot echo functionality for demonstration
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll
+        }
+
+        function handleSend() {
+            const text = userInput.value.trim();
+            if (text) {
+                addMessage(text, 'user');
+                userInput.value = '';
+                // Simulate a bot response
+                setTimeout(() => {
+                    addMessage(`I've received your message: "${text}". I am a demo bot and cannot process this yet.`, 'bot');
+                }, 1000);
+            }
+        }
+
+        sendBtn.addEventListener('click', handleSend);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSend();
+            }
+        });
+    </script>
+</body>
+</html>

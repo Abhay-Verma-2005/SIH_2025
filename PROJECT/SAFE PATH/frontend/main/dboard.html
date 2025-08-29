@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SafePath</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">SafePath</a>
+        <div class="nav-links">
+            <a href="chatbot.html"><i class="fas fa-comment-dots"></i></a>
+            <a href="profile.html"><i class="fas fa-user-circle"></i> JD</a>
+        </div>
+    </nav>
+    
+    <div class="dashboard-container">
+        <div class="card plan-route">
+            <h3><i class="fas fa-route"></i>Plan Your Route</h3>
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Enter starting location">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Enter destination">
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;">Plan Safe Route</button>
+            </form>
+        </div>
+
+        <div class="card safety-legend">
+            <h3><i class="fas fa-traffic-light"></i>Safety Legend</h3>
+            </div>
+        
+        <div class="card emergency-sos">
+            <h3><i class="fas fa-exclamation-triangle"></i>Emergency SOS</h3>
+            <button class="btn btn-danger">Emergency Help</button>
+            <p>Tap for immediate assistance</p>
+        </div>
+
+        <div class="card live-map">
+            <h3><i class="fas fa-map-marked-alt"></i>Live Map View</h3>
+            <i class="fas fa-map-pin"></i>
+            <p>Enter start and end locations to view route</p>
+        </div>
+        
+        <div class="card live-alerts">
+            <h3><i class="fas fa-bullhorn"></i>Live Alerts</h3>
+            </div>
+
+        <div class="card nearby-locations">
+            <h3><i class="fas fa-map-marker-alt"></i>Nearby Safe Locations</h3>
+            </div>
+    </div>
+
+</body>
+</html>

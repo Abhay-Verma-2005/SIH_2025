@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings - SafePath</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">SafePath</a>
+        <div>
+            <a href="dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </nav>
+    
+    <div class="profile-container">
+        <div class="left-column">
+            <div class="card profile-card">
+                <div class="header">
+                    <h3>Personal Information</h3>
+                    <button class="btn btn-secondary">Edit Profile</button>
+                </div>
+                <div class="info-grid">
+                    <div><label>Full Name</label><p>John Doe</p></div>
+                    <div><label>Email Address</label><p>john.doe@email.com</p></div>
+                    <div><label>Phone Number</label><p>+91-98765-43210</p></div>
+                    <div><label>Emergency Contact</label><p>+91-98765-43211</p></div>
+                    <div style="grid-column: 1 / -1;"><label>Current Location</label><p>Bangalore, Karnataka</p></div>
+                </div>
+            </div>
+             <div class="card profile-card" style="margin-top: 1.5rem;">
+                <h3>Recent Trips</h3>
+                <div class="trip-item">
+                    <div>
+                        <p><b>Bangalore → Chennai</b></p>
+                        <small>350 km • 2024-03-15</small>
+                    </div>
+                    <span style="color: var(--green);">Green</span>
+                </div>
+                 <div class="trip-item">
+                    <div>
+                        <p><b>Mumbai → Pune</b></p>
+                        <small>150 km • 2024-05-10</small>
+                    </div>
+                    <span style="color: var(--yellow);">Yellow</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+             <div class="card profile-card">
+                <h3>Current Plan</h3>
+                <h4>Free Plan</h4>
+                <small>Basic safety features</small>
+                <div style="margin-top: 1.5rem;">
+                    <div class="plan-item enabled"><div class="checkbox"></div> Green & Yellow route analysis</div>
+                    <div class="plan-item enabled"><div class="checkbox"></div> Basic weather alerts</div>
+                    <div class="plan-item enabled"><div class="checkbox"></div> Emergency SOS button</div>
+                    <div class="plan-item enabled"><div class="checkbox"></div> Local discovery features</div>
+                    <div class="plan-item disabled"><div class="checkbox"></div> Orange & Red route analysis</div>
+                    <div class="plan-item disabled"><div class="checkbox"></div> Advanced disaster prediction</div>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Upgrade to Premium</button>
+                <small style="text-align:center; display:block; margin-top: 8px;">₹199/month • Cancel anytime</small>
+            </div>
+             <div class="card profile-card" style="margin-top: 1.5rem;">
+                <h3>Quick Actions</h3>
+                <button class="btn btn-secondary" style="width: 100%; margin-bottom: 10px;">Contact Support</button>
+                <button class="btn btn-secondary" style="width: 100%;">Privacy Settings</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
